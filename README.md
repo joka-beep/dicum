@@ -61,14 +61,5 @@ If you want to run the game from executable, run the following commands, while y
 ```bash
 $ pip install pyinstaller
 $ cd Dicum/
-$ pyinstaller --onefile -w Dicum.py
-$ mkdir ~/bin
-$ mv dist/Dicum ~/bin/
+$ pyinstaller Dicum.spec
 ```
-
-Now you should be able to run the program from anywhere using
-```bash
-$ Dicum
-```
-
-
