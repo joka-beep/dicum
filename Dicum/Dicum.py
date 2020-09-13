@@ -23,10 +23,14 @@ class StyledPushButton(QPushButton):
 	def __init__(self, *args, **kwargs):
 		super(QPushButton, self).__init__(*args, **kwargs)
 		# self.setFixedSize(QSize(100, 50))
+		self.setFixedHeight(130)
+		self.setFixedWidth(85)
 		self.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
 		self.setStyleSheet(
-			":enabled { color: white; border-image:url(" + os.path.join(Configuration().ICONS,
-			                                                            "pc_red_black.jpg") + "); } :disabled { color: #222222; background-color: gray; }")
+			"QPushButton { font-family: Love Story Rough;} :enabled { color: white; border-image:url(" + os.path.join(
+				Configuration().ICONS,
+				"pc_red_black.jpg") + "); } :disabled { color: #222222; border-image:url(" + os.path.join(
+				Configuration().ICONS, "pc_red_spades.jpg") + "); }")
 
 
 class MainGameWidget(QWidget):
@@ -56,7 +60,7 @@ class MainGameWidget(QWidget):
 
 	def __setup_ui(self):
 		# calculate button row and column length based on number of commands
-		self.button_array = [StyledPushButton("x") for i in range(self.generator.get_size())]
+		self.button_array = [StyledPushButton() for _ in range(self.generator.get_size())]
 
 		# self.button_rows = self.isqrt(self.generator.get_size())
 		# self.button_cols = self.button_rows if self.button_rows * (self.button_rows + 1) > self.generator.get_size() else self.button_rows + 1
@@ -65,7 +69,7 @@ class MainGameWidget(QWidget):
 
 		self.button_widget = QWidget(self)
 		# self.button_widget.setFixedSize(500, 130)
-		self.button_widget.setFixedHeight(130)
+		# self.button_widget.setFixedHeight(130)
 		self.button_widget.setLayout(QGridLayout())
 		for row in range(self.button_rows):
 			for col in range(self.button_cols):
@@ -95,12 +99,14 @@ class MainGameWidget(QWidget):
 		self.layout().addWidget(self.base_widget)
 
 	def get_content(self, pos):
-		self.button_array[pos].setEnabled(False)
-
 		content_item = self.generator.get_next()
 		if not content_item:
 			return
 		kind, content, time = content_item
+
+		# update button
+		self.button_array[pos].setEnabled(False)
+		self.button_array[pos].setText(kind)
 
 		if kind == "url":
 			self.view.load(QtCore.QUrl(content))
@@ -168,6 +174,7 @@ class MainGameWidget(QWidget):
 		for button_number in range(self.button_widget.layout().count()):
 			try:
 				self.button_widget.layout().itemAt(button_number).widget().setEnabled(True)
+				self.button_widget.layout().itemAt(button_number).widget().setText("")
 			except AttributeError:
 				logging.error("Non-button element in button widget, could not be disabled.")
 
