@@ -59,21 +59,21 @@ class Configuration:
 
 			# Cannot be changed by the user, icons, templates etc...
 			self.BASE_RESOURCES = resource_path("resources")
-			self.SCRIPTS = os.path.join(self.BASE_RESOURCES, "js")
-			if not os.path.isdir(self.SCRIPTS):
-				logging.error("Scripts not found. Continuing but errors might occur.")
 
 			self.TEMPLATES = os.path.join(self.BASE_RESOURCES, "templates")
 			if not os.path.isdir(self.TEMPLATES):
 				logging.error("Templates not found. Continuing but errors might occur.")
 
+			self.SCRIPTS = os.path.join(self.TEMPLATES, "js")
+			if not os.path.isdir(self.SCRIPTS):
+				logging.error("Scripts not found. Continuing but errors might occur.")
+			self.STYLES = os.path.join(self.TEMPLATES, "styles")
+			if not os.path.isdir(self.STYLES):
+				logging.error("Styles not found. Continuing but errors might occur.")
+
 			self.ICONS = os.path.join(self.BASE_RESOURCES, "icons")
 			if not os.path.isdir(self.ICONS):
 				logging.error("Icons not found. Continuing but errors might occur.")
-
-			self.STYLES = os.path.join(self.BASE_RESOURCES, "styles")
-			if not os.path.isdir(self.STYLES):
-				logging.error("Styles not found. Continuing but errors might occur.")
 
 			with tempfile.TemporaryDirectory() as temp_dir:
 				self.TEMP_LOCATION = temp_dir
