@@ -76,9 +76,8 @@ h3.written-in-ink {
 
 .container {
     display: block;
-    max-width: 600px;
     margin: 0 auto;
-    padding: 20px;
+    padding: 80px;
     padding-top: 4em;
     background: white;
 }
@@ -88,7 +87,7 @@ h3.written-in-ink {
 }
 
 p {
-    font-size: 13pt;
+    font-size: 26pt;
     color: #888;
     line-height: 1.7em;
     font-weight: lighter;
