@@ -22,8 +22,11 @@ from LockCounterWidget import LockCounterWidget
 class StyledPushButton(QPushButton):
 	def __init__(self, *args, **kwargs):
 		super(QPushButton, self).__init__(*args, **kwargs)
+		# self.setFixedSize(QSize(100, 50))
+		self.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
 		self.setStyleSheet(
-			":enabled { color: white; background-color: darkred } :disabled { color: #222222; background-color: gray; }")
+			":enabled { color: white; border-image:url(" + os.path.join(Configuration().ICONS,
+			                                                            "pc_red_black.jpg") + "); } :disabled { color: #222222; background-color: gray; }")
 
 
 class MainGameWidget(QWidget):
@@ -55,11 +58,14 @@ class MainGameWidget(QWidget):
 		# calculate button row and column length based on number of commands
 		self.button_array = [StyledPushButton("x") for i in range(self.generator.get_size())]
 
-		self.button_rows = self.isqrt(self.generator.get_size())
-		self.button_cols = self.button_rows if self.button_rows * (
-				self.button_rows + 1) > self.generator.get_size() else self.button_rows + 1
+		# self.button_rows = self.isqrt(self.generator.get_size())
+		# self.button_cols = self.button_rows if self.button_rows * (self.button_rows + 1) > self.generator.get_size() else self.button_rows + 1
+		self.button_rows = 1
+		self.button_cols = self.generator.get_size()
+
 		self.button_widget = QWidget(self)
-		self.button_widget.setFixedSize(500, 130)
+		# self.button_widget.setFixedSize(500, 130)
+		self.button_widget.setFixedHeight(130)
 		self.button_widget.setLayout(QGridLayout())
 		for row in range(self.button_rows):
 			for col in range(self.button_cols):
