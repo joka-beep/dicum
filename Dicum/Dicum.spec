@@ -8,7 +8,8 @@ resources = [
         ("resources/images/README","resources/images"),
         ("resources/images/bg.png","resources/images"),
         ("resources/js", "resources/js"),
-        ("resources/templates", "resources/templates")]
+        ("resources/templates", "resources/templates"),
+        ("resources/styles", "resources/styles")]
 
 a = Analysis(['Dicum.py'],
              pathex=['/home/jonas/Projects/dicum/Dicum'],

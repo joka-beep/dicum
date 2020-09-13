@@ -8,7 +8,7 @@ from shutil import copy2
 
 
 def resource_path(relative_path):
-	""" Get absolute path to resource, works for dev and for PyInstaller
+	""" Get absolute path to resource, works for dev and for PyInstaller. Copied from
 	 https://stackoverflow.com/questions/7674790/bundling-data-files-with-pyinstaller-onefile """
 	try:
 		# PyInstaller creates a temp folder and stores path in _MEIPASS
@@ -70,6 +70,10 @@ class Configuration:
 			self.ICONS = os.path.join(self.BASE_RESOURCES, "icons")
 			if not os.path.isdir(self.ICONS):
 				logging.error("Icons not found. Continuing but errors might occur.")
+
+			self.STYLES = os.path.join(self.BASE_RESOURCES, "styles")
+			if not os.path.isdir(self.STYLES):
+				logging.error("Styles not found. Continuing but errors might occur.")
 
 			with tempfile.TemporaryDirectory() as temp_dir:
 				self.TEMP_LOCATION = temp_dir

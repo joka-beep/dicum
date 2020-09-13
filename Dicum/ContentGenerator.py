@@ -4,6 +4,7 @@ import os
 import logging
 
 from shutil import copy2
+from distutils.dir_util import copy_tree
 
 from jinja2 import Environment, FileSystemLoader
 
@@ -18,8 +19,8 @@ class ContentGenerator:
 		self.commands = self.__get_commands()
 
 		try:
-			copy2(os.path.join(Configuration().SCRIPTS, "updateTime.js"),
-			      os.path.join(Configuration().TEMP_LOCATION, "js", "updateTime.js"))
+			copy_tree(Configuration().SCRIPTS, os.path.join(Configuration().TEMP_LOCATION, "js"))
+			copy_tree(Configuration().STYLES, os.path.join(Configuration().TEMP_LOCATION, "styles"))
 			copy2(os.path.join(Configuration().IMAGES, Configuration().BG_IMAGE), Configuration().TEMP_IMAGES + "/")
 		except FileNotFoundError:
 			logging.critical("Content could not be loaded. file not found error")
@@ -65,10 +66,14 @@ class ContentGenerator:
 		random.shuffle(self.available_images)
 
 	def __interpret_command(self, command):
-		template = self.env.get_template("plain_image.html")
 
 		kind, content, time = command
-		if kind == "img":
+		if kind == "task":
+			template = self.env.get_template("task_dialog.html")
+			return "html", template.render(), time
+
+		elif kind == "img":
+			template = self.env.get_template("plain_image.html")
 			img_file_name = content.strip()
 			if img_file_name == "":
 				try:
@@ -79,8 +84,7 @@ class ContentGenerator:
 					img_file_name = Configuration().BG_IMAGE
 			if not os.path.isfile(os.path.join(Configuration().TEMP_IMAGES, img_file_name)):
 				try:
-					copy2(os.path.join(Configuration().IMAGES, img_file_name),
-					      Configuration().TEMP_IMAGES + "/")
+					copy2(os.path.join(Configuration().IMAGES, img_file_name), Configuration().TEMP_IMAGES + "/")
 				except FileNotFoundError:
 					logging.error("Image file could not be found:", img_file_name)
 			return "html", template.render(image_filename="images/" + img_file_name), time
