@@ -13,8 +13,15 @@ function update(datetime, divName)
     var millisec_diff = datetime - now;
     var days = Math.floor(millisec_diff / (1000 * 60 * 60 * 24));
     var date_diff = new Date( millisec_diff );
+    var output = "You are restricted for another <br />";
 
-    document.getElementById(divName).innerHTML = ("Welcome to Dicum<br/>You are restricted for "
-                + days + " days and "
-                + date_diff.getHours() + ":" + date_diff.getMinutes() + ":" + date_diff.getSeconds());
+    if (days > 0){
+        output += (days == 1 ? "day" : days + " days") + ", ";
+    }
+    if (date_diff.getHours() > 0) {
+        output += date_diff.getHours() + (date_diff.getHours() == 1 ? " hour" : " hours") + " and ";
+    }
+    output += date_diff.getMinutes() + " minute" + (date_diff.getMinutes() == 1 ? "" : "s") + ".";
+
+    document.getElementById(divName).innerHTML = (output);
 }
