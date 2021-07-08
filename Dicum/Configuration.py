@@ -46,7 +46,7 @@ class Configuration:
 				with open(self.LOCK_TIME_LOCATION, "w+") as file:
 					file.write(datetime.now().isoformat())
 
-			# Can be changed by the used and during runtime - e.g. Images etc...
+			# Can be changed by the user and during runtime - e.g. Images etc...
 			self.RESOURCES = os.path.join(self.CONFIG, "resources")
 			if not os.path.isdir(self.RESOURCES):
 				os.makedirs(self.RESOURCES)
