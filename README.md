@@ -2,7 +2,7 @@
 
 Dicum is a small game for tease and denial lovers that like to get locked up. 
 
-![Game Preview](https://github.com/joka-beep/dicum/blob/master/preview/preview-alpha.png)
+![Game Preview](https://github.com/joka-beep/dicum/blob/master/preview/dicum-beta.png)
 
 ## How does it work?
 
@@ -28,8 +28,9 @@ Option 2 (for development):
 * Clone the repository `git clone ... && cd dicum`
 * Create a virtual environment for python `python3 -m venv venv`
 * Source the environment `source venv/bin/activate`
-* Install requirements from requirements.txt `pip install ...`
-* Run the game `python3 DicumUI/DicumUI.py`
+* Install requirements from requirements.txt `python -m pip install -r requirements.txt`
+* Change into the game directory `cd Dicum`
+* Run the game `python Dicum.py`
 
 ## Configuration
 
