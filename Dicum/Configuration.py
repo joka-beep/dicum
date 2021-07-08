@@ -10,10 +10,10 @@ from shutil import copy2
 def resource_path(relative_path):
 	""" Get absolute path to resource, works for dev and for PyInstaller. Copied from
 	 https://stackoverflow.com/questions/7674790/bundling-data-files-with-pyinstaller-onefile """
-	try:
+	if getattr(sys, 'frozen', False) and hasattr(sys, '_MEIPASS'):
 		# PyInstaller creates a temp folder and stores path in _MEIPASS
 		base_path = sys._MEIPASS
-	except Exception:
+	else:
 		base_path = os.path.abspath(".")
 
 	return os.path.join(base_path, relative_path)
@@ -26,7 +26,7 @@ class Configuration:
 			self.UNLOCK_LIMIT = 2
 
 			self.HOME = os.getenv('HOME')
-			self.CONFIG = os.path.join(self.HOME, ".config", "dicum");
+			self.CONFIG = os.path.join(self.HOME, ".config", "dicum")
 			if not os.path.isdir(self.CONFIG):
 				os.makedirs(self.CONFIG)
 
@@ -77,7 +77,7 @@ class Configuration:
 
 			with tempfile.TemporaryDirectory() as temp_dir:
 				self.TEMP_LOCATION = temp_dir
-			logging.info('created temporary directory', temp_dir)
+			logging.info('created temporary directory' + temp_dir)
 
 			self.TEMP_IMAGES = os.path.join(self.TEMP_LOCATION, "images")
 			self.TEMP_SCRIPTS = os.path.join(self.TEMP_LOCATION, "js")
@@ -101,7 +101,7 @@ class Configuration:
 				logging.critical("Dicum time file does not exist.")
 
 		def __str__(self):
-			return repr(self) + self.val
+			return repr(self)
 
 	instance = None
 
