@@ -136,3 +136,9 @@ temp/
 
 # gimp files
 *.xcf
+
+# vscode
+.vscode
+
+# gnome builder
+.buildconfig
